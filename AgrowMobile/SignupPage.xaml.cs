@@ -6,4 +6,9 @@ public partial class SignupPage : ContentPage
 	{
 		InitializeComponent();
 	}
+
+    private async void OnLoginTapped(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("..");
+    }
 }

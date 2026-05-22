@@ -9,38 +9,63 @@
 
         <VerticalStackLayout Spacing="0">
 
-            <!-- TOP HEADER -->
+            <!-- TOP GREEN HEADER -->
             <Border StrokeShape="RoundRectangle 0,0,40,40"
                     BackgroundColor="#228B22"
-                    HeightRequest="220">
+                    HeightRequest="240">
 
                 <VerticalStackLayout Padding="25,60,25,20"
-                                     Spacing="10">
+                                     Spacing="15">
 
+                    <!-- LOGO -->
                     <Image Source="logo_mobile.png"
-                           HeightRequest="70"
+                           HeightRequest="80"
                            HorizontalOptions="Center"/>
 
+                    <!-- TITLE -->
                     <Label Text="Create Account"
-                           FontSize="24"
-                           FontAttributes="Bold"
                            TextColor="White"
+                           FontSize="22"
+                           FontAttributes="Bold"
                            HorizontalOptions="Center"/>
 
-                    <Label Text="Sign up to continue"
+                    <Label Text="Signup to continue"
+                           TextColor="#E6E6E6"
                            FontSize="14"
-                           TextColor="#EEEEEE"
                            HorizontalOptions="Center"/>
 
                 </VerticalStackLayout>
 
             </Border>
 
-            <!-- FORM -->
-            <VerticalStackLayout Padding="25,30"
+            <!-- SIGNUP FORM -->
+            <VerticalStackLayout Padding="25,30,25,30"
                                  Spacing="18">
 
-                <!-- MOBILE -->
+                <!-- SIGNUP AS DROPDOWN -->
+                <Label Text="Signup As"
+                       FontAttributes="Bold"
+                       TextColor="#111111"/>
+
+                <Frame BorderColor="#DDDDDD"
+                       CornerRadius="15"
+                       Padding="5"
+                       HasShadow="False">
+
+                    <Picker x:Name="SignupAsPicker"
+                            Title="Select role"
+                            FontSize="15">
+
+                        <Picker.Items>
+                            <x:String>Customer</x:String>
+                            <x:String>Farmer</x:String>
+                        </Picker.Items>
+
+                    </Picker>
+
+                </Frame>
+
+                <!-- MOBILE NUMBER -->
                 <Label Text="Mobile Number"
                        FontAttributes="Bold"/>
 
@@ -52,6 +77,7 @@
                     <Entry Placeholder="Enter mobile number"
                            Keyboard="Telephone"
                            BackgroundColor="Transparent"/>
+
                 </Frame>
 
                 <!-- USERNAME -->
@@ -65,6 +91,7 @@
 
                     <Entry Placeholder="Enter username"
                            BackgroundColor="Transparent"/>
+
                 </Frame>
 
                 <!-- EMAIL -->
@@ -79,6 +106,7 @@
                     <Entry Placeholder="Enter email"
                            Keyboard="Email"
                            BackgroundColor="Transparent"/>
+
                 </Frame>
 
                 <!-- PASSWORD -->
@@ -93,15 +121,35 @@
                     <Entry Placeholder="Enter password"
                            IsPassword="True"
                            BackgroundColor="Transparent"/>
+
                 </Frame>
 
-                <!-- SIGNUP BUTTON -->
+                <!-- CREATE ACCOUNT BUTTON -->
                 <Button Text="Create Account"
                         HeightRequest="55"
                         BackgroundColor="#228B22"
                         TextColor="White"
                         FontAttributes="Bold"
                         CornerRadius="15"/>
+
+                <!-- BACK TO LOGIN -->
+                <HorizontalStackLayout HorizontalOptions="Center"
+                                       Spacing="5">
+
+                    <Label Text="Already have an account?"
+                           TextColor="Gray"/>
+
+                    <Label Text="Login"
+                           TextColor="#228B22"
+                           FontAttributes="Bold">
+
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnLoginTapped"/>
+                        </Label.GestureRecognizers>
+
+                    </Label>
+
+                </HorizontalStackLayout>
 
             </VerticalStackLayout>
 
