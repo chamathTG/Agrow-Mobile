@@ -42,7 +42,7 @@
             <VerticalStackLayout Padding="25,30,25,30"
                                  Spacing="18">
 
-                <!-- SIGNUP AS DROPDOWN -->
+                <!-- SIGNUP AS -->
                 <Label Text="Signup As"
                        FontAttributes="Bold"
                        TextColor="#111111"/>
@@ -74,7 +74,8 @@
                        Padding="10"
                        HasShadow="False">
 
-                    <Entry Placeholder="Enter mobile number"
+                    <Entry x:Name="MobileEntry"
+                           Placeholder="Enter mobile number"
                            Keyboard="Telephone"
                            BackgroundColor="Transparent"/>
 
@@ -89,7 +90,8 @@
                        Padding="10"
                        HasShadow="False">
 
-                    <Entry Placeholder="Enter username"
+                    <Entry x:Name="UsernameEntry"
+                           Placeholder="Enter username"
                            BackgroundColor="Transparent"/>
 
                 </Frame>
@@ -103,7 +105,8 @@
                        Padding="10"
                        HasShadow="False">
 
-                    <Entry Placeholder="Enter email"
+                    <Entry x:Name="EmailEntry"
+                           Placeholder="Enter email"
                            Keyboard="Email"
                            BackgroundColor="Transparent"/>
 
@@ -118,7 +121,8 @@
                        Padding="10"
                        HasShadow="False">
 
-                    <Entry Placeholder="Enter password"
+                    <Entry x:Name="PasswordEntry"
+                           Placeholder="Enter password"
                            IsPassword="True"
                            BackgroundColor="Transparent"/>
 
@@ -130,7 +134,8 @@
                         BackgroundColor="#228B22"
                         TextColor="White"
                         FontAttributes="Bold"
-                        CornerRadius="15"/>
+                        CornerRadius="15"
+                        Clicked="OnSignupClicked"/>
 
                 <!-- BACK TO LOGIN -->
                 <HorizontalStackLayout HorizontalOptions="Center"

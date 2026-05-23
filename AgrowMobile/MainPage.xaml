@@ -90,54 +90,6 @@
                            BackgroundColor="Transparent"/>
                 </Frame>
 
-                <!-- FORGOT PASSWORD POPUP -->
-                <Frame x:Name="ForgotPopup"
-                         IsVisible="False"
-                         BackgroundColor="White"
-                         CornerRadius="25"
-                         Padding="20"
-                         Margin="20"
-                         VerticalOptions="Center"
-                         HorizontalOptions="Center"
-                         BorderColor="#DDDDDD"
-                         HasShadow="True">
-
-                    <VerticalStackLayout Spacing="15">
-
-                        <Label Text="Forgot Password"
-                               FontSize="22"
-                               FontAttributes="Bold"
-                               HorizontalOptions="Center"/>
-
-                        <!-- USERNAME -->
-                        <Entry x:Name="ForgotUsernameEntry"
-                               Placeholder="Enter Username"/>
-
-                        <!-- MOBILE -->
-                        <Entry x:Name="ForgotMobileEntry"
-                                 Placeholder="Enter Mobile Number"
-                                 Keyboard="Telephone"/>
-
-                        <!-- BUTTONS -->
-                        <HorizontalStackLayout Spacing="10"
-                               HorizontalOptions="Center">
-
-                            <Button Text="Cancel"
-                                BackgroundColor="Gray"
-                                TextColor="White"
-                                Clicked="OnCancelForgotPopup"/>
-
-                            <Button Text="Verify"
-                                    BackgroundColor="#228B22"
-                                    TextColor="White"
-                                    Clicked="OnVerifyForgotPassword"/>
-
-                        </HorizontalStackLayout>
-
-                    </VerticalStackLayout>
-
-                </Frame>
-
                 <Label Text="Forgot Password?"
                        TextColor="#228B22"
                        FontAttributes="Bold"
