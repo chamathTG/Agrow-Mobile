@@ -1,12 +1,126 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:AgrowMobile.Models"
              x:Class="AgrowMobile.FarmerDashboardPage"
-             Title="FarmerDashboardPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             BackgroundColor="White"
+             Title="Farmer Dashboard">
+
+    <ScrollView>
+
+        <VerticalStackLayout Padding="20"
+                             Spacing="15">
+
+            <!-- TOP -->
+            <Label x:Name="FarmerNameLabel"
+                   Text="Welcome Farmer"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="#228B22"/>
+
+            <!-- IMAGE -->
+            <Image x:Name="ProductImage"
+                   HeightRequest="180"
+                   Aspect="AspectFill"
+                   BackgroundColor="#EEEEEE"/>
+
+            <Button Text="Upload Product Image"
+                    BackgroundColor="#228B22"
+                    TextColor="White"
+                    Clicked="OnPickImage"/>
+
+            <!-- TITLE -->
+            <Label Text="Product Title"
+                   FontAttributes="Bold"/>
+
+            <Entry x:Name="TitleEntry"
+                   Placeholder="Enter product title"/>
+
+            <!-- DESCRIPTION -->
+            <Label Text="Description"
+                   FontAttributes="Bold"/>
+
+            <Editor x:Name="DescriptionEditor"
+                    HeightRequest="100"
+                    Placeholder="Enter product description"/>
+
+            <!-- QTY -->
+            <Label Text="Quantity"
+                   FontAttributes="Bold"/>
+
+            <Entry x:Name="QtyEntry"
+                   Keyboard="Numeric"
+                   Placeholder="Enter quantity"/>
+
+            <Label Text="{Binding Price,
+                   StringFormat='Price: Rs. {0:F2}'}"
+                   FontAttributes="Bold"
+                   TextColor="Green"/>
+
+            <!-- PRICE -->
+            <Label Text="Price"
+                   FontAttributes="Bold"/>
+
+            <Entry x:Name="PriceEntry"
+                     Keyboard="Numeric"
+                     Placeholder="Enter price"/>
+
+            <!-- SAVE BUTTON -->
+            <Button Text="Add Product"
+                    BackgroundColor="#228B22"
+                    TextColor="White"
+                    HeightRequest="55"
+                    Clicked="OnAddProduct"/>
+
+            <!-- PRODUCTS LIST -->
+            <Label Text="My Products"
+                   FontSize="22"
+                   FontAttributes="Bold"
+                   Margin="0,20,0,0"/>
+
+            <CollectionView x:Name="ProductsCollection">
+
+                <CollectionView.ItemTemplate>
+
+                    <DataTemplate x:DataType="model:ProductModel">
+
+                        <Frame Margin="0,10"
+                   Padding="10"
+                   BorderColor="#DDDDDD">
+
+                            <VerticalStackLayout Spacing="10">
+
+                                <Image Source="{Binding Image}"
+                           HeightRequest="150"
+                           Aspect="AspectFill"/>
+
+                                <Label Text="{Binding Title}"
+                           FontSize="18"
+                           FontAttributes="Bold"/>
+
+                                <Label Text="{Binding Description}"/>
+
+                                <Label Text="{Binding Qty,
+                           StringFormat='Qty: {0}'}"/>
+
+                                <Button Text="Delete"
+                            BackgroundColor="Red"
+                            TextColor="White"
+                            CommandParameter="{Binding Id}"
+                            Clicked="OnDeleteClicked"/>
+
+                            </VerticalStackLayout>
+
+                        </Frame>
+
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
 </ContentPage>

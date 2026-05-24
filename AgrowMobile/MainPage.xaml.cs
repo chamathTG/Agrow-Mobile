@@ -54,7 +54,7 @@ public partial class MainPage : ContentPage
                 "OK");
 
             await Navigation.PushAsync(
-                new FarmerDashboardPage());
+                new FarmerDashboardPage(username));
         }
         else
         {
@@ -65,39 +65,59 @@ public partial class MainPage : ContentPage
         }
     }
 
-    private async void OnForgotPasswordTapped(object sender, EventArgs e)
+    private async void OnForgotPasswordTapped(
+    object sender,
+    EventArgs e)
     {
-        string username = await DisplayPromptAsync(
-            "Forgot Password",
-            "Enter your username",
-            "Next",
-            "Cancel");
+        string username =
+            await DisplayPromptAsync(
+                "Forgot Password",
+                "Enter your username",
+                "Next",
+                "Cancel");
 
         if (string.IsNullOrWhiteSpace(username))
             return;
 
-        string mobile = await DisplayPromptAsync(
-            "Verification",
-            "Enter your mobile number",
-            "Verify",
-            "Cancel",
-            keyboard: Keyboard.Telephone);
+        string mobile =
+            await DisplayPromptAsync(
+                "Verification",
+                "Enter your mobile number",
+                "Verify",
+                "Cancel",
+                keyboard: Keyboard.Telephone);
 
         if (string.IsNullOrWhiteSpace(mobile))
             return;
 
-        if (username == "admin" && mobile == "0771234567")
+        string newPassword =
+            await DisplayPromptAsync(
+                "Reset Password",
+                "Enter new password",
+                "Reset",
+                "Cancel");
+
+        if (string.IsNullOrWhiteSpace(newPassword))
+            return;
+
+        bool success =
+            await db.ResetPassword(
+                username,
+                mobile,
+                newPassword);
+
+        if (success)
         {
             await DisplayAlert(
-                "Verified",
-                "You can now reset your password",
+                "Success",
+                "Password Reset Successful",
                 "OK");
         }
         else
         {
             await DisplayAlert(
                 "Failed",
-                "Username or mobile number is incorrect",
+                "Username or mobile incorrect",
                 "OK");
         }
     }
