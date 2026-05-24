@@ -44,7 +44,7 @@ public partial class MainPage : ContentPage
                 "OK");
 
             await Navigation.PushAsync(
-                new CustomerDashboardPage());
+                new CustomerDashboardPage(username));
         }
         else if (result == "Farmer")
         {

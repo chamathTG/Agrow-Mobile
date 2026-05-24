@@ -260,4 +260,185 @@ public class DbService
             return false;
         }
     }
+
+    public async Task<List<ProductModel>> GetAllProducts()
+    {
+        List<ProductModel> list = new();
+
+        using var conn =
+            new MySqlConnection(connString);
+
+        await conn.OpenAsync();
+
+        string query = "SELECT * FROM products";
+
+        using var cmd =
+            new MySqlCommand(query, conn);
+
+        using var reader =
+            await cmd.ExecuteReaderAsync();
+
+        while (await reader.ReadAsync())
+        {
+            list.Add(new ProductModel
+            {
+                Id = Convert.ToInt32(reader["id"]),
+                FarmerName =
+                    reader["farmer_name"].ToString() ?? "",
+
+                Title =
+                    reader["title"].ToString() ?? "",
+
+                Description =
+                    reader["description"].ToString() ?? "",
+
+                Qty =
+                    Convert.ToInt32(reader["qty"]),
+
+                Price =
+                    Convert.ToDouble(reader["price"]),
+
+                Image =
+                    reader["image"].ToString() ?? ""
+            });
+        }
+
+        return list;
+    }
+
+    public async Task<ProductModel?> GetProductById(
+    int id)
+    {
+        using var conn =
+            new MySqlConnection(connString);
+
+        await conn.OpenAsync();
+
+        string query =
+            "SELECT * FROM products WHERE id=@id";
+
+        using var cmd =
+            new MySqlCommand(query, conn);
+
+        cmd.Parameters.AddWithValue("@id", id);
+
+        using var reader =
+            await cmd.ExecuteReaderAsync();
+
+        if (await reader.ReadAsync())
+        {
+            return new ProductModel
+            {
+                Id = Convert.ToInt32(reader["id"]),
+                FarmerName =
+                    reader["farmer_name"].ToString() ?? "",
+
+                Title =
+                    reader["title"].ToString() ?? "",
+
+                Description =
+                    reader["description"].ToString() ?? "",
+
+                Qty =
+                    Convert.ToInt32(reader["qty"]),
+
+                Price =
+                    Convert.ToDouble(reader["price"]),
+
+                Image =
+                    reader["image"].ToString() ?? ""
+            };
+        }
+
+        return null;
+    }
+
+    public async Task<bool> AddOrder(
+    string customerName,
+    string farmerName,
+    string productTitle,
+    int qty,
+    double total,
+    string deliveryName,
+    string deliveryMobile,
+    string deliveryAddress)
+    {
+        try
+        {
+            using var conn =
+                new MySqlConnection(connString);
+
+            await conn.OpenAsync();
+
+            string query =
+                @"INSERT INTO orders
+            (
+                customer_name,
+                farmer_name,
+                product_title,
+                qty,
+                total,
+                delivery_name,
+                delivery_mobile,
+                delivery_address,
+                status
+            )
+            VALUES
+            (
+                @customer,
+                @farmer,
+                @title,
+                @qty,
+                @total,
+                @dname,
+                @dmobile,
+                @daddress,
+                'Pending'
+            )";
+
+            using var cmd =
+                new MySqlCommand(query, conn);
+
+            cmd.Parameters.AddWithValue(
+                "@customer",
+                customerName);
+
+            cmd.Parameters.AddWithValue(
+                "@farmer",
+                farmerName);
+
+            cmd.Parameters.AddWithValue(
+                "@title",
+                productTitle);
+
+            cmd.Parameters.AddWithValue(
+                "@qty",
+                qty);
+
+            cmd.Parameters.AddWithValue(
+                "@total",
+                total);
+
+            cmd.Parameters.AddWithValue(
+                "@dname",
+                deliveryName);
+
+            cmd.Parameters.AddWithValue(
+                "@dmobile",
+                deliveryMobile);
+
+            cmd.Parameters.AddWithValue(
+                "@daddress",
+                deliveryAddress);
+
+            int rows =
+                await cmd.ExecuteNonQueryAsync();
+
+            return rows > 0;
+        }
+        catch
+        {
+            return false;
+        }
+    }
 }
