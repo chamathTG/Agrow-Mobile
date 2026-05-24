@@ -7,6 +7,13 @@
     x:Class="AgrowMobile.CustomerDashboardPage"
     BackgroundColor="White">
 
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem Text="Cart"
+                     Clicked="OnCartClicked"/>
+
+    </ContentPage.ToolbarItems>
+
     <Grid RowDefinitions="Auto,*">
 
         <!-- TOP -->
@@ -62,6 +69,12 @@
                                     BackgroundColor="#228B22"
                                     TextColor="White"
                                     Clicked="OnBuyClicked"
+                                    CommandParameter="{Binding Id}"/>
+
+                            <Button Text="Add To Cart"
+                                    BackgroundColor="Orange"
+                                    TextColor="White"
+                                    Clicked="OnAddToCartClicked"
                                     CommandParameter="{Binding Id}"/>
 
                         </VerticalStackLayout>

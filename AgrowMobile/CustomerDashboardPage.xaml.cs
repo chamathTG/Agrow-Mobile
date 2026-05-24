@@ -29,8 +29,8 @@ public partial class CustomerDashboardPage : ContentPage
     }
 
     private async void OnBuyClicked(
-        object sender,
-        EventArgs e)
+    object sender,
+    EventArgs e)
     {
         Button btn = (Button)sender;
 
@@ -43,6 +43,7 @@ public partial class CustomerDashboardPage : ContentPage
         if (product == null)
             return;
 
+        // ASK QTY
         string qtyText =
             await DisplayPromptAsync(
                 "Buy Product",
@@ -54,28 +55,44 @@ public partial class CustomerDashboardPage : ContentPage
         if (string.IsNullOrWhiteSpace(qtyText))
             return;
 
-        int qty = int.Parse(qtyText);
+        int qty =
+            int.TryParse(qtyText, out int q)
+            ? q : 0;
 
+        // STOCK CHECK
+        if (qty <= 0 || qty > product.Qty)
+        {
+            await DisplayAlert(
+                "Error",
+                "Invalid quantity",
+                "OK");
+
+            return;
+        }
+
+        // DELIVERY NAME
         string deliveryName =
             await DisplayPromptAsync(
                 "Delivery",
-                "Enter receiver name");
+                "Receiver name");
 
         if (string.IsNullOrWhiteSpace(deliveryName))
             return;
 
+        // MOBILE
         string deliveryMobile =
             await DisplayPromptAsync(
                 "Delivery",
-                "Enter mobile number");
+                "Mobile number");
 
         if (string.IsNullOrWhiteSpace(deliveryMobile))
             return;
 
+        // ADDRESS
         string address =
             await DisplayPromptAsync(
                 "Delivery",
-                "Enter delivery address");
+                "Delivery address");
 
         if (string.IsNullOrWhiteSpace(address))
             return;
@@ -98,7 +115,7 @@ public partial class CustomerDashboardPage : ContentPage
         {
             await DisplayAlert(
                 "Success",
-                "Order Placed Successfully",
+                $"Order Placed\nTotal: Rs. {total:F2}",
                 "OK");
         }
         else
@@ -108,5 +125,42 @@ public partial class CustomerDashboardPage : ContentPage
                 "Cannot Place Order",
                 "OK");
         }
+    }
+
+    private async void OnAddToCartClicked(
+    object sender,
+    EventArgs e)
+    {
+        Button btn = (Button)sender;
+
+        int productId =
+            (int)btn.CommandParameter;
+
+        ProductModel? product =
+            await db.GetProductById(productId);
+
+        if (product == null)
+            return;
+
+        bool success =
+            await db.AddToCart(
+                customerName,
+                product);
+
+        if (success)
+        {
+            await DisplayAlert(
+                "Success",
+                "Added To Cart",
+                "OK");
+        }
+    }
+
+    private async void OnCartClicked(
+    object sender,
+    EventArgs e)
+    {
+        await Navigation.PushAsync(
+            new CartPage(customerName));
     }
 }

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:AgrowMobile.Models"
+    x:Class="AgrowMobile.CartPage"
+    BackgroundColor="White">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- TOP -->
+        <VerticalStackLayout Grid.Row="0"
+                             Padding="20,20,20,10">
+
+            <Label Text="My Cart"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="#228B22"/>
+
+        </VerticalStackLayout>
+
+        <!-- CART ITEMS -->
+        <CollectionView Grid.Row="1"
+                        x:Name="CartCollection"
+                        Margin="20,0">
+
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate x:DataType="model:CartModel">
+
+                    <Frame Margin="0,10"
+                           Padding="10"
+                           BorderColor="#DDDDDD">
+                        <VerticalStackLayout Spacing="10">
+
+                            <Image Source="{Binding Image}"
+                                    HeightRequest="160"
+                                    Aspect="AspectFill"/>
+
+                            <Label Text="{Binding Title}"
+                                    FontAttributes="Bold"
+                                    FontSize="20"/>
+
+                            <Label Text="{Binding Price,
+                                    StringFormat='Price: Rs. {0:F2}'}"
+                                    TextColor="Green"
+                                    FontAttributes="Bold"/>
+
+                            <HorizontalStackLayout Spacing="10">
+
+                                <Button Text="-"
+                                        WidthRequest="40"
+                                        Clicked="OnDecreaseQty"
+                                        CommandParameter="{Binding Id}"/>
+
+                                <Label Text="{Binding Qty}"
+                                       VerticalOptions="Center"
+                                       FontSize="18"
+                                       FontAttributes="Bold"/>
+
+                                <Button Text="+"
+                                        WidthRequest="40"
+                                        Clicked="OnIncreaseQty"
+                                        CommandParameter="{Binding Id}"/>
+
+                            </HorizontalStackLayout>
+
+                            <Button Text="Remove"
+                                    BackgroundColor="Red"
+                                    TextColor="White"
+                                    Clicked="OnRemoveClicked"
+                                    CommandParameter="{Binding Id}"/>
+
+                        </VerticalStackLayout>
+
+                    </Frame>
+
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+        <!-- CHECKOUT BUTTON -->
+        <Button Grid.Row="2"
+                Text="Checkout All"
+                Margin="20"
+                HeightRequest="55"
+                BackgroundColor="#228B22"
+                TextColor="White"
+                FontAttributes="Bold"
+                CornerRadius="15"
+                Clicked="OnCheckoutClicked"/>
+
+    </Grid>
+
+</ContentPage>
