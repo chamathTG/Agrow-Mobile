@@ -65,29 +65,31 @@
 
                 <!-- USERNAME -->
                 <Label Text="Username"
-                       FontAttributes="Bold"/>
+       FontAttributes="Bold"/>
 
                 <Frame BorderColor="#DDDDDD"
                        CornerRadius="15"
                        Padding="10"
                        HasShadow="False">
 
-                    <Entry Placeholder="Enter username"
-                           BackgroundColor="Transparent"/>
+                    <Entry x:Name="UsernameEntry"
+                             Placeholder="Enter username"
+                             BackgroundColor="Transparent"/>
                 </Frame>
 
                 <!-- PASSWORD -->
                 <Label Text="Password"
-                       FontAttributes="Bold"/>
+       FontAttributes="Bold"/>
 
                 <Frame BorderColor="#DDDDDD"
                        CornerRadius="15"
                        Padding="10"
                        HasShadow="False">
 
-                    <Entry Placeholder="Enter password"
-                           IsPassword="True"
-                           BackgroundColor="Transparent"/>
+                    <Entry x:Name="PasswordEntry"
+                             Placeholder="Enter password"
+                             IsPassword="True"
+                             BackgroundColor="Transparent"/>
                 </Frame>
 
                 <Label Text="Forgot Password?"
@@ -101,13 +103,13 @@
 
                 </Label>
 
-                <!-- LOGIN BUTTON -->
                 <Button Text="Login"
                         HeightRequest="55"
                         BackgroundColor="#228B22"
                         TextColor="White"
                         FontAttributes="Bold"
-                        CornerRadius="15"/>
+                        CornerRadius="15"
+                        Clicked="OnLoginClicked"/>
 
                 <!-- FOOTER -->
                 <HorizontalStackLayout HorizontalOptions="Center"
